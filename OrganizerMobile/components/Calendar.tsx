@@ -4,16 +4,14 @@ import CalendarStrip from 'react-native-calendar-strip'
 import Day from '../models/Day'
 import MarkedDay from '../models/MarkedDay'
 import Dot from '../models/Dot'
-import request from '../services/httpRequestService'
-
 
 interface ICalendarProps {
-    Days: Array<Day>
+    Days: Array<Day>,
+    getDay: any
 }
 
 interface ICalendarState {
     markedDays: Array<MarkedDay>,
-    day: Day
 }
 
 class Calendar extends Component<ICalendarProps,ICalendarState>{
@@ -21,43 +19,26 @@ class Calendar extends Component<ICalendarProps,ICalendarState>{
         super(props);
         this.state = {
             markedDays: [],
-            day: {
-                id: 0,
-                date: '',
-                noteList:[],
-                schedule:[],
-                toDoList:[]
-            }
-        }  
+        }
     }
+    componentDidUpdate(){
+        if(this.props.Days.length !== this.state.markedDays.length)
+        {
+            var marked: Array<MarkedDay> = [];
 
-    componentDidMount(){
-        var marked: Array<MarkedDay> = [];
-
-        this.props.Days.forEach(d => {
-            var dot = new Dot(d.id,'red');
-            var markedDate = new MarkedDay(d.date,new Array(dot));
-            marked.push(markedDate);            
-        })
-
-        this.setState(prevState => ({
-            markedDays: [...prevState.markedDays.concat(marked)]
-          }))
+            this.props.Days.forEach(d => {
+                var dot = new Dot(d.id,'red');
+                var markedDate = new MarkedDay(d.date,new Array(dot));
+                marked.push(markedDate);            
+            })
+            
+            this.setState(prevState => ({
+                markedDays: [...prevState.markedDays.concat(marked)]
+            }))
+        }
     }
-
-    getDay(date:string){
-        request.getDay(date).
-        then((response) => response.json())
-        .then((responseJson) => {
-            console.log(responseJson)
-         this.setState({day: responseJson});
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-        console.log(this.state.day);
-    }
-    render() {
+    
+    render() { 
         return (
             <View>
                 <CalendarStrip
@@ -72,8 +53,9 @@ class Calendar extends Component<ICalendarProps,ICalendarState>{
                 disabledDateNameStyle={{ color: 'grey' }}
                 disabledDateNumberStyle={{ color: 'grey' }}
                 iconContainer={{ flex: 0.1 }}
-                onDateSelected= {(date) => this.getDay(date.toLocaleString())}
+                onDateSelected= {(date) => this.props.getDay(date.toISOString())}
                 markedDates={this.state.markedDays}
+                scrollable={true}
                 ></CalendarStrip>            
           </View>
         )

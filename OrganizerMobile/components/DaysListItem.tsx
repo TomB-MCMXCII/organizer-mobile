@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
+import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native'
 import Day from '../models/Day'
 
 interface AppProps {
@@ -16,15 +16,15 @@ class DaysListItem extends Component<AppProps>{
     }
     render(){
         return(
-          <TouchableOpacity>
-              <View>
-                <Text style={styles.listItem}>{this.convert(this.props.Day.date)}</Text>
-                <Text>Notes: </Text>
-              </View>
-          </TouchableOpacity> 
+            <View>
+                <TouchableOpacity>
+                    <Text style={styles.listItem}>{this.convert(this.props.Day.date)}</Text>
+                </TouchableOpacity>
+            </View>  
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     listItem:{

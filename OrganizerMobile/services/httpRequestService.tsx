@@ -1,10 +1,10 @@
 import rnFetchBlob from './selfSignedHttpClient'
 
 export default class httpRequestService {
-    static getDays(){
-        return rnFetchBlob.fetch('GET',' https://localhost:44392/api/day/getDays');
+    static async getDays(){
+        return await rnFetchBlob.fetch('GET',' https://localhost:44392/api/day/getDays') 
     }
-    static getDay(date:string){
-        return rnFetchBlob.fetch(`GET`,`https://localhost:44392/api/day/getDays?date=${date}`)
+    static async getDay(date:string){
+        return await rnFetchBlob.fetch(`GET`,`https://localhost:44392/api/day/getDay?date=${date}`)
     }
 }
