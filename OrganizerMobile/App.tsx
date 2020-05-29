@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Calendar from './components/Calendar';
-import request from './services/httpRequestService'
+import request from './services/httpDayRequestService'
 import Day from './models/Day'
 import ToDos from './components/ToDos'
 import Schedule from './components/Schedule'
@@ -63,9 +63,9 @@ class App extends Component<IAppProps,IAppState> {
        <Calendar Days = {this.state.days} getDay={this.getDay}/>
        <ScrollView>
        <Text style={styles.todos}>ToDo's</Text>
-       <ToDos todos = {this.state.day.toDoDtos}></ToDos> 
+       <ToDos todos = {this.state.day.toDoDtos} getDay={this.getDay}></ToDos> 
        <Text style={styles.todos}>Schedule</Text>
-       <Schedule schedule = {this.state.day.scheduleDtos}></Schedule>
+       <Schedule schedule = {this.state.day.scheduleDtos} getDay={this.getDay}></Schedule>
        </ScrollView>      
       </View>
     )

@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import ScheduleItem from 'models/ScheduleItem';
 import { Icon } from 'react-native-elements';
+import request from '../services/httpScheduleRequestService'
 
 interface IScheduleState {
     schedule: Array<ScheduleItem>
 }
 
 interface IScheduleProps {
-    schedule: Array<ScheduleItem>
+    schedule: Array<ScheduleItem>,
+    getDay: any
 }
 
 export default class Schedule extends Component<IScheduleProps, IScheduleState> {
@@ -27,6 +29,11 @@ export default class Schedule extends Component<IScheduleProps, IScheduleState> 
         }
     }
 
+    async deleteScheduleItem(id:number){
+        await request.deleteScheduleItem(id);
+        this.props.getDay(this.state.schedule[0].date)
+    }
+
     render(){
         return(
             <View>
@@ -38,7 +45,7 @@ export default class Schedule extends Component<IScheduleProps, IScheduleState> 
                 <View style={styles.view}>
                 <Text>{item.startTime} - {item.endTime}</Text>
                 <Text >{item.text}</Text>
-                <Icon type='font-awesome' color='#FF0000' name="remove"/>
+                <Icon type='font-awesome' color='#FF0000' name="remove" onPress={ () => this.deleteScheduleItem(item.id)}/>
                 </View>
             </TouchableOpacity>}
         keyExtractor={item => item.id.toString()}/>

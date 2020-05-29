@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, Text, FlatList, StyleSheet} from "react-native";
 import ToDo from "models/ToDo";
 import { Icon } from 'react-native-elements'
+import request from '../services/httpTodoRequestService'
 
 interface IToDosProps {
     todos: Array<ToDo>;
+    getDay: any;
 }
 interface IToDoState {
     todos: Array<ToDo>
@@ -23,10 +25,9 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
         }
     }
 
-    deleteToDo(id:number){
-        var todosCopy = [...this.state.todos];
-        var todo = todosCopy.find(x => x.id === id);
-        // var index = todosCopy.indexOf(todo)
+    async deleteToDo(id:number){
+        await request.deleteTodDo(id);
+        this.props.getDay(this.state.todos[0].date)
     }
 
     render(){
@@ -39,7 +40,7 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.view}>
                     <Text >{item.text}</Text>
-                    <Icon type='font-awesome' color='#FF0000' name="remove" />
+                    <Icon type='font-awesome' color='#FF0000' name="remove" onPress={ () => this.deleteToDo(item.id)}/>
                     </View>
                 </TouchableOpacity>}
             keyExtractor={item => item.id.toString()}/>

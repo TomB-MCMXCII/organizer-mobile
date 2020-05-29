@@ -1,6 +1,6 @@
 import rnFetchBlob from './selfSignedHttpClient'
 
-export default class httpRequestService {
+export default class httpDayRequestService {
     static async getDays(){
         return await rnFetchBlob.fetch('GET',' https://localhost:44392/api/day/getDays') 
     }
