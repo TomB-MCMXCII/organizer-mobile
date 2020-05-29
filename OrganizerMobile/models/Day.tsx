@@ -8,11 +8,11 @@ export default class Day {
         this.date = date;
         this.noteList = noteList;
         this.toDoDtos = toDoList;
-        this.schedule = schedule;
+        this.scheduleDtos = schedule;
     }
     id: number;
     date: string;
     noteList: Array<Note>;
     toDoDtos: Array<ToDo>;
-    schedule: Array<ScheduleItem>;
+    scheduleDtos: Array<ScheduleItem>;
 }

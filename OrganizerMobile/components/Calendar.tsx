@@ -56,6 +56,7 @@ class Calendar extends Component<ICalendarProps,ICalendarState>{
                 onDateSelected= {(date) => this.props.getDay(date.toISOString())}
                 markedDates={this.state.markedDays}
                 scrollable={true}
+                selectedDate={new Date()}
                 ></CalendarStrip>            
           </View>
         )

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Calendar from './components/Calendar';
 import request from './services/httpRequestService'
 import Day from './models/Day'
 import ToDos from './components/ToDos'
+import Schedule from './components/Schedule'
 
 interface IAppProps {
     
@@ -23,7 +24,7 @@ class App extends Component<IAppProps,IAppState> {
         id: 0,
         date: '',
         noteList: [],
-        schedule: [],
+        scheduleDtos: [],
         toDoDtos: []
       }
     }
@@ -42,7 +43,7 @@ class App extends Component<IAppProps,IAppState> {
       .catch((error) => {
         console.error(error);
       });
-     
+    this.getDay(new Date().toDateString()) 
   }
 
   getDay = (date:string) => {
@@ -58,11 +59,14 @@ class App extends Component<IAppProps,IAppState> {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
        <Calendar Days = {this.state.days} getDay={this.getDay}/>
+       <ScrollView>
        <Text style={styles.todos}>ToDo's</Text>
        <ToDos todos = {this.state.day.toDoDtos}></ToDos> 
-       <Text style={styles.todos}>Schedule</Text>      
+       <Text style={styles.todos}>Schedule</Text>
+       <Schedule schedule = {this.state.day.scheduleDtos}></Schedule>
+       </ScrollView>      
       </View>
     )
   }
