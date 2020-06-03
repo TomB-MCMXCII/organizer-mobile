@@ -45,7 +45,7 @@ export default class Schedule extends Component<IScheduleProps, IScheduleState> 
                 <View style={styles.view}>
                 <Text>{item.startTime} - {item.endTime}</Text>
                 <Text >{item.text}</Text>
-                <Icon type='font-awesome' color='#FF0000' name="remove" onPress={ () => this.deleteScheduleItem(item.id)}/>
+                <Icon type='font-awesome' color='#FF0000' name="trash" onPress={ () => this.deleteScheduleItem(item.id)}/>
                 </View>
             </TouchableOpacity>}
         keyExtractor={item => item.id.toString()}/>

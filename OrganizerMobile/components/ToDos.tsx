@@ -39,8 +39,12 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
             renderItem={({ item }) => 
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.view}>
-                    <Text >{item.text}</Text>
-                    <Icon type='font-awesome' color='#FF0000' name="remove" onPress={ () => this.deleteToDo(item.id)}/>
+                        <View style = {styles.textContainer}>
+                            <Text >{item.text}</Text>
+                        </View>
+                        <View style = {styles.iconContainer}>
+                            <Icon type='font-awesome' color='#FF0000' name="trash" onPress={ () => this.deleteToDo(item.id)}/>
+                        </View>
                     </View>
                 </TouchableOpacity>}
             keyExtractor={item => item.id.toString()}/>
@@ -50,6 +54,12 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
 }
 
 const styles = StyleSheet.create({
+    textContainer : {
+       flex: 15,
+    },
+    iconContainer : {
+        flex: 1
+    },
     listitem : {
         backgroundColor: '#f8f8f8',
         borderBottomWidth: 1,
@@ -60,6 +70,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding:15,
+        flex:1
     },
     noEntries : {
         color: 'red',
