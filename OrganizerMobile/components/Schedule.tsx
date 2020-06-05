@@ -43,9 +43,9 @@ export default class Schedule extends Component<IScheduleProps, IScheduleState> 
         renderItem={({ item }) => 
             <TouchableOpacity style={styles.listitem}>
                 <View style={styles.view}>
-                <Text>{item.startTime} - {item.endTime}</Text>
-                <Text >{item.text}</Text>
-                <Icon type='font-awesome' color='#FF0000' name="trash" onPress={ () => this.deleteScheduleItem(item.id)}/>
+                <Text style = {styles.listitemText}>{item.startTime} - {item.endTime}</Text>
+                <Text style = {styles.listitemText}>{item.text}</Text>
+                <Icon type='font-awesome' color='#CE4354' name="trash" onPress={ () => this.deleteScheduleItem(item.id)}/>
                 </View>
             </TouchableOpacity>}
         keyExtractor={item => item.id.toString()}/>
@@ -56,9 +56,13 @@ export default class Schedule extends Component<IScheduleProps, IScheduleState> 
 
 const styles = StyleSheet.create({
     listitem : {
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#9167d7',
         borderBottomWidth: 1,
-        borderColor: '#eee',
+        borderColor: '#9ACE43',
+    },
+    listitemText: {
+        color: '#2EB0A0',
+        fontWeight:'700'
     },
     view: {
         flexDirection: 'column',
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
         padding:15,
     },
     noEntries : {
-        color: 'red',
+        color: '#CE4354',
         textAlign: 'center'
     },
     flatlist: {

@@ -40,10 +40,10 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.view}>
                         <View style = {styles.textContainer}>
-                            <Text >{item.text}</Text>
+                            <Text style = {styles.listitemText}>{item.text}</Text>
                         </View>
                         <View style = {styles.iconContainer}>
-                            <Icon type='font-awesome' color='#FF0000' name="trash" onPress={ () => this.deleteToDo(item.id)}/>
+                            <Icon type='font-awesome' color='#CE4354' name="trash" onPress={ () => this.deleteToDo(item.id)}/>
                         </View>
                     </View>
                 </TouchableOpacity>}
@@ -56,14 +56,19 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
 const styles = StyleSheet.create({
     textContainer : {
        flex: 15,
+       color: '#2EB0A0'
     },
     iconContainer : {
         flex: 1
     },
     listitem : {
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#9167d7',
         borderBottomWidth: 1,
-        borderColor: '#eee',
+        borderColor: '#9ACE43',
+    },
+    listitemText: {
+        color: '#2EB0A0',
+        fontWeight:'700'
     },
     view: {
         flexDirection: 'row',
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
         flex:1
     },
     noEntries : {
-        color: 'red',
+        color: '#CE4354',
         textAlign: 'center'
     }
 })

@@ -1,15 +1,12 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
 import Calendar from '../components/Calendar';
 import request from '../services/httpDayRequestService'
 import Day from '../models/Day'
 import ToDos from '../components/ToDos'
 import Schedule from '../components/Schedule'
 import Footer from '../components/Footer'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
 
 interface IAppProps {
     navigation:any
@@ -40,10 +37,14 @@ class MainView extends Component<IAppProps,IAppState> {
      request.getDays()
      .then((response) => response.json())
       .then((responseJson) => {
+          if(responseJson === undefined){
+            
+          }
+          else{
       dayArray = responseJson;
       this.setState(prevState => ({
         days: [...prevState.days.concat(dayArray)]
-      }))
+      }))}
       })
       .catch((error) => {
         console.error(error);
@@ -53,9 +54,20 @@ class MainView extends Component<IAppProps,IAppState> {
 
   getDay = (date:string) => {
     request.getDay(date)
-    .then((response) => response.json())
+    .then((response) => response.json()).catch((error) => {error})
     .then((responseJson) => {
-     this.setState({day: responseJson});
+        if(responseJson === undefined)
+        {
+            this.setState({day: {
+                id: 0,
+                date: '',
+                noteList: [],
+                scheduleDtos: [],
+                toDoDtos: []
+            }})
+        }else{
+            this.setState({day: responseJson});
+        }
     })
     .catch((error) => {
       console.error(error);
@@ -64,7 +76,7 @@ class MainView extends Component<IAppProps,IAppState> {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1,backgroundColor: '#5F2EB0'}}>
        <Calendar Days = {this.state.days} getDay={this.getDay}/>
        <ScrollView>
        <Text style={styles.todos}>ToDo's</Text>
@@ -72,8 +84,9 @@ class MainView extends Component<IAppProps,IAppState> {
        <Text style={styles.todos}>Schedule</Text>
        <Schedule schedule = {this.state.day.scheduleDtos} getDay={this.getDay}></Schedule>
        </ScrollView>
-       <Footer navigation={this.props.navigation}></Footer>      
+       <Footer navigation={this.props.navigation}></Footer>
       </View>
+      
     )
   }
 }
@@ -82,8 +95,8 @@ const styles = StyleSheet.create({
   todos:{
     textAlign:'center',
     fontSize:30,
-    backgroundColor: '#C0C0C0'
-    
+    backgroundColor: '#5F2EB0',
+    color: '#43CEBD'
   }
 })
 export default MainView;

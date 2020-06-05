@@ -18,29 +18,38 @@ export default class Footer extends Component<IFooterProps, IFooterState>{
 
     render() {
         return(
-            <View style = {styles.container}>
-                <TouchableOpacity onPress={() => {this.props.navigation.navigate("AddToDo")}}><Text style = {styles.textTodo}>Add todo</Text></TouchableOpacity>
-                <TouchableOpacity ><Text style = {styles.textSchedule}>Add schedule</Text></TouchableOpacity>
+            <View style = {styles.footerContainer}>
+                <View style = {styles.addToDoContainer}><TouchableOpacity onPress={() => {this.props.navigation.navigate("AddToDo")}}><Text style = {styles.textTodo}>Add todo</Text></TouchableOpacity></View>
+                <View style = {styles.addScheduleContainer}><TouchableOpacity ><Text style = {styles.textSchedule}>Add schedule</Text></TouchableOpacity></View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    footerContainer: {
         backgroundColor: '#7743CE',
         height: 60,
         flexDirection: 'row',
     },
+    addToDoContainer: {
+        flex: 1,
+        alignItems: 'flex-start'
+    },
+    addScheduleContainer: {
+        flex: 1,
+        alignItems: 'flex-end'
+    },
     textTodo: {
         color: 'white',
         fontSize: 20,
-        paddingLeft: 15,
+        paddingStart: 15,
         paddingTop: 15
     },
     textSchedule: {
         color: 'white',
         fontSize: 20,
         paddingTop: 15,
+        paddingEnd: 15
     }
 })

@@ -27,7 +27,7 @@ class Calendar extends Component<ICalendarProps,ICalendarState>{
             var marked: Array<MarkedDay> = [];
 
             this.props.Days.forEach(d => {
-                var dot = new Dot(d.id,'red');
+                var dot = new Dot(d.id,'#9ACE43');
                 var markedDate = new MarkedDay(d.date,new Array(dot));
                 marked.push(markedDate);            
             })
@@ -43,13 +43,14 @@ class Calendar extends Component<ICalendarProps,ICalendarState>{
             <View>
                 <CalendarStrip
                 calendarAnimation={{ type: 'sequence', duration: 30 }}
-                style={{ height: 100, paddingTop: 20, paddingBottom: 10 }}
-                calendarHeaderStyle={{ color: 'white' }}
+                daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: '#CE4354'}}
+                style={{ height: 100, paddingTop: 10, paddingBottom: 10 }}
+                calendarHeaderStyle={{ color: '#43CEBD' }}
                 calendarColor={'#7743CE'}
-                dateNumberStyle={{ color: 'white' }}
-                dateNameStyle={{ color: 'white' }}
-                highlightDateNumberStyle={{ color: 'yellow' }}
-                highlightDateNameStyle={{ color: 'yellow' }}
+                dateNumberStyle={{ color: '#43CEBD' }}
+                dateNameStyle={{ color: '#43CEBD' }}
+                highlightDateNumberStyle={{ color: '#9ACE43' }}
+                highlightDateNameStyle={{ color: '#9ACE43' }}
                 disabledDateNameStyle={{ color: 'grey' }}
                 disabledDateNumberStyle={{ color: 'grey' }}
                 iconContainer={{ flex: 0.1 }}
