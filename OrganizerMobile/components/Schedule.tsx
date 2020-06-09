@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 import ScheduleItem from 'models/ScheduleItem';
 import { Icon } from 'react-native-elements';
 import request from '../services/httpScheduleRequestService'
+import global from '../styles/globalStylesheet'
 
 interface IScheduleState {
     schedule: Array<ScheduleItem>
@@ -37,7 +38,7 @@ export default class Schedule extends Component<IScheduleProps, IScheduleState> 
     render(){
         return(
             <View>
-            {this.state.schedule.length === 0 && <Text style={styles.noEntries}>No entries</Text>}
+            {this.state.schedule.length === 0 && <Text style={global.erroMessage}>No entries</Text>}
         <FlatList style={styles.flatlist}
         data={this.state.schedule}
         renderItem={({ item }) => 
@@ -69,10 +70,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding:15,
-    },
-    noEntries : {
-        color: '#CE4354',
-        textAlign: 'center'
     },
     flatlist: {
         marginBottom:1,

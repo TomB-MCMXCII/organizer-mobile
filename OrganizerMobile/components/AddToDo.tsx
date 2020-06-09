@@ -9,11 +9,11 @@ interface IAddToDoState {
     value: string,
     date: string,
     errorMessage: string,
-    isValidationError: boolean
+    isValidationError: boolean,
 }
 
 interface IAddToDoProps {
-
+    navigation:any
 }
 export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
     constructor(props: any){
@@ -21,10 +21,9 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
         this.state = {
             value: '',
             date: '',
-            errorMessage: '',
-            isValidationError: false
-        }
-        
+            errorMessage: 'Error: empty text field',
+            isValidationError: false,
+        }   
     }
 
     onChangeText(text:string){
@@ -36,16 +35,23 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
     }
 
     addToDo(){
-        if(this.validateInput())
+        if(this.isValidationError())
         {
          var todo = {text: this.state.value, date:this.state.date}
          request.addToDo(todo).then(response => console.log(response)).catch(error => console.log(error));
         }
-        
+        else {
+            this.setState({isValidationError: true})
+        }     
     }
-    validateInput(){
+    isValidationError(){
         if(this.state.value === ''){
-            return false;
+           this.setState({isValidationError: true})
+           return false;
+        }
+        else{
+            this.setState({isValidationError: false})
+            return true;
         }
     }
     
@@ -93,12 +99,12 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
                     <View style = {styles.buttonContainer}>
                         <Button
                         title = {'Add schedule'}
-                        onPress={() => this.addToDo()}/>    
+                        onPress={() => this.props.navigation.navigate("AddSchedule")}/>    
                     </View>
                     <View style = {styles.buttonContainer}>
                         <Button
                         title = {'Go back to mainview'}
-                        onPress={() => this.addToDo()}/>    
+                        onPress={() => this.props.navigation.navigate("Home")}/>    
                     </View>
                 </TouchableWithoutFeedback>       
             </View>

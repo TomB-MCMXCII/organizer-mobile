@@ -36,6 +36,16 @@ class App extends Component {
             },
             headerTintColor: '#fff',
           }}/>
+          <Stack.Screen
+          name="AddSchedule"
+          component={AddToDo}
+          options={{
+            title: 'Add Schedule',
+            headerStyle: {
+              backgroundColor: '#5F2EB0',
+            },
+            headerTintColor: '#fff',
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
     )
