@@ -35,7 +35,7 @@ class MainView extends Component<IAppProps,IAppState> {
   componentDidMount = () => {
     var dayArray: Array<Day> = [];
      request.getDays()
-     .then((response) => response.json())
+     .then((response) => response.json()).catch((error) => {error})
       .then((responseJson) => {
           if(responseJson === undefined){
             
