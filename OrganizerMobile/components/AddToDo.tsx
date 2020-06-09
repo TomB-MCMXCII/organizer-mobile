@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import { View, TextInput, StyleSheet, Text, Button } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Button, Keyboard } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip'
 import request from '../services/httpTodoRequestService'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import global from '../styles/globalStylesheet'
 
 interface IAddToDoState {
     value: string,
-    date: string
+    date: string,
+    errorMessage: string,
+    isValidationError: boolean
 }
 
 interface IAddToDoProps {
@@ -16,7 +20,9 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
         super(props);
         this.state = {
             value: '',
-            date: ''
+            date: '',
+            errorMessage: '',
+            isValidationError: false
         }
         
     }
@@ -30,13 +36,21 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
     }
 
     addToDo(){
+        if(this.validateInput())
+        {
          var todo = {text: this.state.value, date:this.state.date}
          request.addToDo(todo).then(response => console.log(response)).catch(error => console.log(error));
+        }
         
+    }
+    validateInput(){
+        if(this.state.value === ''){
+            return false;
+        }
     }
     
     render(){
-        return(
+        return( 
             <View>
                 <CalendarStrip
                 calendarAnimation={{ type: 'sequence', duration: 30 }}
@@ -51,33 +65,44 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
                 disabledDateNameStyle={{ color: 'grey' }}
                 disabledDateNumberStyle={{ color: 'grey' }}
                 iconContainer={{ flex: 0.1 }}
-                onDateSelected= {(date) => this.setState({date: date.toString()})}
+                onDateSelected= {(date) => this.setState({date: date.toString(), value: ''})}
                 //markedDates={this.state.markedDays}
                 scrollable={true}
                 selectedDate={new Date()}
                 ></CalendarStrip>
-                <View style = {styles.textInputContainer}>
-                    <View style = {styles.textContainer}>
-                        <Text>Todo text</Text>
+                <TouchableWithoutFeedback onPress= {() => Keyboard.dismiss()}>
+                        {this.state.isValidationError === true && <Text style={global.erroMessage}>{this.state.errorMessage}</Text>}
+                    <View style = {styles.textInputContainer}>
+                        <View style = {styles.inputContainer}>
+                            <TextInput
+                            style={{ height: 120, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20 }}
+                            multiline
+                            numberOfLines = {5}
+                            maxLength = {100}
+                            placeholder = 'enter text here'
+                            onChangeText={text => this.onChangeText(text)}
+                            value={this.state.value}
+                            />
+                        </View>
                     </View>
-                    <View style = {styles.inputContainer}>
-                        <TextInput
-                        style={{ height: 120, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20 }}
-                        multiline
-                        numberOfLines = {5}
-                        maxLength = {100}
-                        placeholder = 'enter text here'
-                        onChangeText={text => this.onChangeText(text)}
-                        value={this.state.value}
-                        />
+                    <View style = {styles.buttonContainer}>
+                        <Button
+                        title = {'Add todo'}
+                        onPress={() => this.addToDo()}/>    
                     </View>
-                </View>
-                <View style = {styles.buttonContainer}>
-                    <Button
-                    title = {'Add todo'}
-                    onPress={() => this.addToDo()}/>    
-                </View>                
+                    <View style = {styles.buttonContainer}>
+                        <Button
+                        title = {'Add schedule'}
+                        onPress={() => this.addToDo()}/>    
+                    </View>
+                    <View style = {styles.buttonContainer}>
+                        <Button
+                        title = {'Go back to mainview'}
+                        onPress={() => this.addToDo()}/>    
+                    </View>
+                </TouchableWithoutFeedback>       
             </View>
+
         )
     }
 }
@@ -99,6 +124,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignSelf: 'center',
-        marginVertical: 20
+        marginTop: 20
     }
 })

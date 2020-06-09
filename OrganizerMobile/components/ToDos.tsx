@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, FlatList, StyleSheet} from "react-native"
 import ToDo from "models/ToDo";
 import { Icon } from 'react-native-elements'
 import request from '../services/httpTodoRequestService'
+import global from '../styles/globalStylesheet'
 
 interface IToDosProps {
     todos: Array<ToDo>;
@@ -33,7 +34,7 @@ export default class ToDos extends Component<IToDosProps, IToDoState>{
     render(){
         return(
             <View>
-                {this.state.todos.length === 0 && <Text style={styles.noEntries}>No entries</Text>}
+                {this.state.todos.length === 0 && <Text style={global.erroMessage}>No entries</Text>}
             <FlatList 
             data={this.state.todos}
             renderItem={({ item }) => 
@@ -76,9 +77,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding:15,
         flex:1
-    },
-    noEntries : {
-        color: '#CE4354',
-        textAlign: 'center'
     }
 })

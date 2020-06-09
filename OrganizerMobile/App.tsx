@@ -5,7 +5,6 @@ import AddToDo from './components/AddToDo'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-
 const Stack = createStackNavigator();
 
 class App extends Component {
