@@ -63,6 +63,7 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
                             placeholder = 'enter start time here'
                             // onChangeText={text => this.onChangeText(text)}
                             value={this.state.value}
+                            keyboardType= {'number-pad'}
                             />
                             <TextInput
                             style={{ height: 60, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20, marginTop: 20 }}
@@ -86,12 +87,12 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
                     </View>
                     <View style = {styles.buttonContainer}>
                         <Button
-                        title = {'Add todo'}
+                        title = {'Add schedule item'}
                          onPress={() => console.log()}/>    
                     </View>
                     <View style = {styles.buttonContainer}>
                         <Button
-                        title = {'Add schedule'}
+                        title = {'Go back to add todo'}
                         onPress={() => this.props.navigation.navigate("???")}/>    
                     </View>
                     <View style = {styles.buttonContainer}>
