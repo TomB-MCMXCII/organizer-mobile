@@ -10,6 +10,8 @@ interface IAddToDoState {
     date: string,
     errorMessage: string,
     isValidationError: boolean,
+    successMessage: string,
+    isAddedSuccesfully: boolean
 }
 
 interface IAddToDoProps {
@@ -22,6 +24,8 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
             value: '',
             date: '',
             errorMessage: 'Error: empty text field',
+            successMessage: 'Added succesfully',
+            isAddedSuccesfully: false,
             isValidationError: false,
         }   
     }
@@ -38,15 +42,22 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
         if(this.isValidationError())
         {
          var todo = {text: this.state.value, date:this.state.date}
-         request.addToDo(todo).then(response => console.log(response)).catch(error => console.log(error));
+         request.addToDo(todo)
+         .then(response => {
+            if(response.respInfo.status === 200){
+                this.setState({isAddedSuccesfully: true})
+            }})
+                .catch(error => console.log(error));
         }
         else {
             this.setState({isValidationError: true})
         }     
     }
+    
     isValidationError(){
         if(this.state.value === ''){
            this.setState({isValidationError: true})
+           this.setState({isAddedSuccesfully: false})
            return false;
         }
         else{
@@ -78,6 +89,7 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
                 ></CalendarStrip>
                 <TouchableWithoutFeedback onPress= {() => Keyboard.dismiss()}>
                         {this.state.isValidationError === true && <Text style={global.erroMessage}>{this.state.errorMessage}</Text>}
+                        {this.state.isAddedSuccesfully === true && <Text style={global.succesMessage}>{this.state.successMessage}</Text>}
                     <View style = {styles.textInputContainer}>
                         <View style = {styles.inputContainer}>
                             <TextInput

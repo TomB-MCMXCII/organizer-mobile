@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import MainView from './components/MainView'
 import AddToDo from './components/AddToDo'
+import AddSchedule from './components/AddSchedule'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -38,7 +39,7 @@ class App extends Component {
           }}/>
           <Stack.Screen
           name="AddSchedule"
-          component={AddToDo}
+          component={AddSchedule}
           options={{
             title: 'Add Schedule',
             headerStyle: {
