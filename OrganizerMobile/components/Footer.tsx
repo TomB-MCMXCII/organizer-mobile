@@ -20,7 +20,7 @@ export default class Footer extends Component<IFooterProps, IFooterState>{
         return(
             <View style = {styles.footerContainer}>
                 <View style = {styles.addToDoContainer}><TouchableOpacity onPress={() => {this.props.navigation.navigate("AddToDo")}}><Text style = {styles.textTodo}>Add todo</Text></TouchableOpacity></View>
-                <View style = {styles.addScheduleContainer}><TouchableOpacity ><Text style = {styles.textSchedule}>Add schedule</Text></TouchableOpacity></View>
+                <View style = {styles.addScheduleContainer}><TouchableOpacity onPress={() => {this.props.navigation.navigate("AddSchedule")}} ><Text style = {styles.textSchedule}>Add schedule</Text></TouchableOpacity></View>
             </View>
         )
     }

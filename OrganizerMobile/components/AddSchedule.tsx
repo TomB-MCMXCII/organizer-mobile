@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {View, Button, TouchableWithoutFeedback, StyleSheet, TextInput, Keyboard, Text} from 'react-native'
 import CalendarStrip from 'react-native-calendar-strip'
 import global from '../styles/globalStylesheet'
-import {Picker} from '@react-native-community/picker';
+import TimePicker from '../components/TimePicker';
 
 interface IAddScheduleProps {
     navigation: any
@@ -59,8 +59,18 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
                         <View style = {styles.textInputContainer}>
                             <View style = {styles.inputContainer}>
                                 <Text>Start time</Text>
+                                    <TimePicker/>
                                 <Text>End time</Text>
+                                    <TimePicker/>
                                 <Text>Text</Text>
+                                <TextInput
+                                style={{ height: 120, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20 }}
+                                multiline
+                                numberOfLines = {5}
+                                maxLength = {100}
+                                placeholder = 'enter text here'
+                                value={this.state.value}
+                                />
                             </View>
                         </View>
                         <View style = {styles.buttonContainer}>
