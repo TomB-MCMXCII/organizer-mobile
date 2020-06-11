@@ -3,6 +3,7 @@ import {View, Button, TouchableWithoutFeedback, StyleSheet, TextInput, Keyboard,
 import CalendarStrip from 'react-native-calendar-strip'
 import global from '../styles/globalStylesheet'
 import TimePicker from '../components/TimePicker';
+import ScheduleItem from 'models/ScheduleItem';
 
 interface IAddScheduleProps {
     navigation: any
@@ -15,7 +16,11 @@ interface IAddScheduleState {
     isValidationError: boolean,
     successMessage: string,
     isAddedSuccesfully: boolean,
-    language: string
+    language: string,
+    startHours: string,
+    startMinutes: string,
+    endHours: string,
+    endMinutes: string
 }
 
 export default class AddSchedule extends Component<IAddScheduleProps,IAddScheduleState>{
@@ -29,7 +34,23 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
             isAddedSuccesfully: false,
             isValidationError: false,
             language: '',
+            startHours: '1',
+            startMinutes: '00',
+            endHours: '1',
+            endMinutes: '00'
         }
+    }
+
+    addScheduleItem(scheduleItem: ScheduleItem){
+
+    }
+
+    handleStartTime(hours:string,minutes:string){
+
+    }
+
+    handleEndTime(hours:string,minutes:string){
+
     }
 
     render(){
@@ -58,11 +79,12 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
                             {this.state.isAddedSuccesfully === true && <Text style={global.succesMessage}>{this.state.successMessage}</Text>}
                         <View style = {styles.textInputContainer}>
                             <View style = {styles.inputContainer}>
-                                <Text>Start time</Text>
-                                    <TimePicker/>
-                                <Text>End time</Text>
-                                    <TimePicker/>
-                                <Text>Text</Text>
+                                <TimePicker 
+                                startHours={this.state.startHours} 
+                                startMinutes={this.state.startMinutes}
+                                endHours={this.state.endHours}
+                                endMinutes={this.state.endMinutes}
+                                />
                                 <TextInput
                                 style={{ height: 120, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20 }}
                                 multiline
@@ -81,7 +103,7 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
                         <View style = {styles.buttonContainer}>
                             <Button
                             title = {'Go back to add todo'}
-                            onPress={() => this.props.navigation.navigate("???")}/>    
+                            onPress={() => this.props.navigation.navigate("AddToDo")}/>    
                         </View>
                         <View style = {styles.buttonContainer}>
                             <Button
