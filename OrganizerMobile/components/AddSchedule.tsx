@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {View, Button, TouchableWithoutFeedback, StyleSheet, TextInput, Keyboard, Text} from 'react-native'
 import CalendarStrip from 'react-native-calendar-strip'
 import global from '../styles/globalStylesheet'
+import {Picker} from '@react-native-community/picker';
 
 interface IAddScheduleProps {
     navigation: any
@@ -13,7 +14,8 @@ interface IAddScheduleState {
     errorMessage: string,
     isValidationError: boolean,
     successMessage: string,
-    isAddedSuccesfully: boolean
+    isAddedSuccesfully: boolean,
+    language: string
 }
 
 export default class AddSchedule extends Component<IAddScheduleProps,IAddScheduleState>{
@@ -26,6 +28,7 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
             successMessage: 'Added succesfully',
             isAddedSuccesfully: false,
             isValidationError: false,
+            language: '',
         }
     }
 
@@ -46,61 +49,37 @@ export default class AddSchedule extends Component<IAddScheduleProps,IAddSchedul
                 disabledDateNumberStyle={{ color: 'grey' }}
                 iconContainer={{ flex: 0.1 }}
                 onDateSelected= {(date) => this.setState({date: date.toString(), value: ''})}
-                //markedDates={this.state.markedDays}
                 scrollable={true}
                 selectedDate={new Date()}
                 ></CalendarStrip>
-                {/* <TouchableWithoutFeedback onPress= {() => Keyboard.dismiss()}> */}
-                        {this.state.isValidationError === true && <Text style={global.erroMessage}>{this.state.errorMessage}</Text>}
-                        {this.state.isAddedSuccesfully === true && <Text style={global.succesMessage}>{this.state.successMessage}</Text>}
-                    <View style = {styles.textInputContainer}>
-                        <View style = {styles.inputContainer}>
-                            <TextInput
-                            style={{ height: 60, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20, marginTop: 20 }}
-                            multiline
-                            numberOfLines = {1}
-                            maxLength = {20}
-                            placeholder = 'enter start time here'
-                            // onChangeText={text => this.onChangeText(text)}
-                            value={this.state.value}
-                            keyboardType= {'number-pad'}
-                            />
-                            <TextInput
-                            style={{ height: 60, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20, marginTop: 20 }}
-                            multiline
-                            numberOfLines = {1}
-                            maxLength = {20}
-                            placeholder = 'enter end time here'
-                            // onChangeText={text => this.onChangeText(text)}
-                            value={this.state.value}
-                            />
-                            <TextInput
-                            style={{ height: 60, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20, marginTop: 20 }}
-                            multiline
-                            numberOfLines = {1}
-                            maxLength = {20}
-                            placeholder = 'enter text here'
-                            // onChangeText={text => this.onChangeText(text)}
-                            value={this.state.value}
-                            />
+                <TouchableWithoutFeedback onPress= {() => Keyboard.dismiss()}>
+                    <View>
+                            {this.state.isValidationError === true && <Text style={global.erroMessage}>{this.state.errorMessage}</Text>}
+                            {this.state.isAddedSuccesfully === true && <Text style={global.succesMessage}>{this.state.successMessage}</Text>}
+                        <View style = {styles.textInputContainer}>
+                            <View style = {styles.inputContainer}>
+                                <Text>Start time</Text>
+                                <Text>End time</Text>
+                                <Text>Text</Text>
+                            </View>
+                        </View>
+                        <View style = {styles.buttonContainer}>
+                            <Button
+                            title = {'Add schedule item'}
+                            onPress={() => console.log()}/>    
+                        </View>
+                        <View style = {styles.buttonContainer}>
+                            <Button
+                            title = {'Go back to add todo'}
+                            onPress={() => this.props.navigation.navigate("???")}/>    
+                        </View>
+                        <View style = {styles.buttonContainer}>
+                            <Button
+                            title = {'Go back to mainview'}
+                            onPress={() => this.props.navigation.navigate("Home")}/>    
                         </View>
                     </View>
-                    <View style = {styles.buttonContainer}>
-                        <Button
-                        title = {'Add schedule item'}
-                         onPress={() => console.log()}/>    
-                    </View>
-                    <View style = {styles.buttonContainer}>
-                        <Button
-                        title = {'Go back to add todo'}
-                        onPress={() => this.props.navigation.navigate("???")}/>    
-                    </View>
-                    <View style = {styles.buttonContainer}>
-                        <Button
-                        title = {'Go back to mainview'}
-                        onPress={() => this.props.navigation.navigate("Home")}/>    
-                    </View>
-                {/* </TouchableWithoutFeedback>        */}
+                </TouchableWithoutFeedback>       
             </View>
 
         )

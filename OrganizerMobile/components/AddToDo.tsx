@@ -88,35 +88,37 @@ export default class AddToDo extends Component<IAddToDoProps,IAddToDoState>{
                 selectedDate={new Date()}
                 ></CalendarStrip>
                 <TouchableWithoutFeedback onPress= {() => Keyboard.dismiss()}>
-                        {this.state.isValidationError === true && <Text style={global.erroMessage}>{this.state.errorMessage}</Text>}
-                        {this.state.isAddedSuccesfully === true && <Text style={global.succesMessage}>{this.state.successMessage}</Text>}
-                    <View style = {styles.textInputContainer}>
-                        <View style = {styles.inputContainer}>
-                            <TextInput
-                            style={{ height: 120, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20 }}
-                            multiline
-                            numberOfLines = {5}
-                            maxLength = {100}
-                            placeholder = 'enter text here'
-                            onChangeText={text => this.onChangeText(text)}
-                            value={this.state.value}
-                            />
+                    <View>
+                            {this.state.isValidationError === true && <Text style={global.erroMessage}>{this.state.errorMessage}</Text>}
+                            {this.state.isAddedSuccesfully === true && <Text style={global.succesMessage}>{this.state.successMessage}</Text>}
+                        <View style = {styles.textInputContainer}>
+                            <View style = {styles.inputContainer}>
+                                <TextInput
+                                style={{ height: 120, borderColor: 'grey', borderWidth: 1, textAlignVertical: 'top', fontSize:20 }}
+                                multiline
+                                numberOfLines = {5}
+                                maxLength = {100}
+                                placeholder = 'enter text here'
+                                onChangeText={text => this.onChangeText(text)}
+                                value={this.state.value}
+                                />
+                            </View>
                         </View>
-                    </View>
-                    <View style = {styles.buttonContainer}>
-                        <Button
-                        title = {'Add todo'}
-                        onPress={() => this.addToDo()}/>    
-                    </View>
-                    <View style = {styles.buttonContainer}>
-                        <Button
-                        title = {'Add schedule'}
-                        onPress={() => this.props.navigation.navigate("AddSchedule")}/>    
-                    </View>
-                    <View style = {styles.buttonContainer}>
-                        <Button
-                        title = {'Go back to mainview'}
-                        onPress={() => this.props.navigation.navigate("Home")}/>    
+                        <View style = {styles.buttonContainer}>
+                            <Button
+                            title = {'Add todo'}
+                            onPress={() => this.addToDo()}/>    
+                        </View>
+                        <View style = {styles.buttonContainer}>
+                            <Button
+                            title = {'Add schedule'}
+                            onPress={() => this.props.navigation.navigate("AddSchedule")}/>    
+                        </View>
+                        <View style = {styles.buttonContainer}>
+                            <Button
+                            title = {'Go back to mainview'}
+                            onPress={() => this.props.navigation.navigate("Home")}/>    
+                        </View>
                     </View>
                 </TouchableWithoutFeedback>       
             </View>
